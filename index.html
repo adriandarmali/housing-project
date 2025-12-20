@@ -9,94 +9,100 @@
     body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; color:#111; }
     header { padding: 28px 16px; border-bottom: 1px solid var(--b); }
     main { max-width: var(--max); margin: 0 auto; padding: 16px; }
+    h1 { margin:0 0 6px; }
     .muted { color:#666; font-size:14px; }
     .card { border:1px solid var(--b); border-radius: 12px; padding:16px; margin: 12px 0; }
-    .row { display:grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    label { display:block; font-size:12px; color:#444; margin-bottom:6px; }
-    select, input[type="number"], input[type="range"] { width:100%; padding:10px; border:1px solid #ddd; border-radius:10px; }
-    input[type="range"] { padding: 0; border: none; }
-    button { padding: 10px 14px; border: 1px solid #ccc; background:#fff; border-radius: 10px; cursor:pointer; }
+    .grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px; align-items: end; }
+    .field label { display:block; font-size:12px; color:#444; margin-bottom:6px; }
+    select, input[type="number"] {
+      width:100%; padding:10px 12px; border:1px solid #ddd; border-radius:10px; font-size:14px;
+      box-sizing: border-box; background:#fff;
+    }
+    .hint { font-size:12px; color:#555; margin-top:6px; line-height: 1.3; }
+    .actions { display:flex; gap:12px; align-items:center; flex-wrap: wrap; }
+    button {
+      padding: 11px 14px; border: 1px solid #ccc; background:#fff; border-radius: 10px;
+      cursor:pointer; font-size:14px;
+    }
     button:hover { border-color:#999; }
+    .chips { display:flex; gap:10px; flex-wrap: wrap; margin-top: 12px; }
+    .chip { display:inline-flex; gap:6px; align-items:center; padding:6px 10px; border:1px solid #ddd; border-radius:999px; font-size:12px; color:#333; background:#fafafa; }
     table { width:100%; border-collapse: collapse; }
-    th, td { border-bottom:1px solid #eee; padding:10px 8px; text-align:left; font-size:14px; }
+    th, td { border-bottom:1px solid #eee; padding:10px 8px; text-align:left; font-size:14px; vertical-align: top; }
     th { font-size:12px; color:#444; text-transform: uppercase; letter-spacing:.03em; }
-    .pill { display:inline-block; padding:4px 8px; border:1px solid #ddd; border-radius:999px; font-size:12px; color:#333; }
-    .hint { font-size:12px; color:#555; margin-top:6px; }
-    .kpi { display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px; }
-    .kpi .pill { background:#fafafa; }
-    @media (max-width: 820px) { .row { grid-template-columns: 1fr; } }
+    td.num, th.num { text-align:right; font-variant-numeric: tabular-nums; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
   <header>
     <main style="padding-top:0;">
-      <h1 style="margin:0 0 6px;">🏠 Student Housing Optimizer (Dummy)</h1>
-      <div class="muted">Customer-friendly controls (demo only). Filters + sorts a tiny sample dataset.</div>
+      <h1>🏠 Student Housing Optimizer (Dummy)</h1>
+      <div class="muted">Customer-friendly controls. Demo only (filters + sorts sample data).</div>
     </main>
   </header>
 
   <main>
     <div class="card">
-      <h2 style="margin:0 0 10px; font-size:18px;">Your preferences</h2>
+      <h2 style="margin:0 0 12px; font-size:18px;">Your preferences</h2>
 
-      <div class="row">
-        <div>
+      <div class="grid">
+        <div class="field">
           <label for="k">How many listings do you want?</label>
           <input id="k" type="number" min="1" max="20" value="10" />
+          <div class="hint">Shows up to this many results.</div>
         </div>
 
-        <div>
+        <div class="field">
           <label for="budget">Max rent per listing (CAD)</label>
           <input id="budget" type="number" min="0" step="50" value="1400" />
           <div class="hint">Listings above this rent are excluded.</div>
         </div>
 
-        <div>
-          <label for="safety">How safe do you want it?</label>
+        <div class="field">
+          <label for="safety">Safety preference</label>
           <select id="safety">
             <option value="super_safe">Super safe</option>
             <option value="safe" selected>Safe</option>
             <option value="balanced">Balanced</option>
             <option value="flexible">A bit unsafe is ok</option>
           </select>
-          <div class="hint">This sets a hidden crime cap.</div>
+          <div class="hint">This sets an internal crime threshold.</div>
         </div>
-      </div>
 
-      <div class="row" style="margin-top:12px;">
-        <div>
-          <label for="travelPriority">How important is a short commute?</label>
+        <div class="field">
+          <label for="travelPriority">Commute preference</label>
           <select id="travelPriority">
             <option value="low">Not important</option>
             <option value="med" selected>Somewhat important</option>
             <option value="high">Very important</option>
             <option value="extreme">I hate commuting</option>
           </select>
-          <div class="hint">This sets a hidden “value of time”.</div>
+          <div class="hint">Prioritizes shorter travel times.</div>
         </div>
 
-        <div>
-          <label for="transferTolerance">How much do you dislike transfers?</label>
+        <div class="field">
+          <label for="transferTolerance">Transfers preference</label>
           <select id="transferTolerance">
             <option value="ok" selected>Transfers are fine</option>
             <option value="prefer">Prefer fewer transfers</option>
             <option value="avoid">Avoid transfers</option>
             <option value="nope">No transfers if possible</option>
           </select>
-          <div class="hint">This sets a hidden modes penalty.</div>
+          <div class="hint">Prioritizes fewer modes/transfers.</div>
         </div>
 
-        <div>
-          <label for="runBtn">Run</label>
+        <div class="field">
+          <label>&nbsp;</label>
           <button id="runBtn" style="width:100%;">Show best matches</button>
-          <div class="hint">Demo uses sample data only.</div>
+          <div class="hint">No backend. Sample data only.</div>
         </div>
       </div>
 
-      <div class="kpi" aria-live="polite">
-        <span class="pill">Safety cap: <span id="capCrime">—</span></span>
-        <span class="pill">Commute weight: <span id="capTime">—</span></span>
-        <span class="pill">Transfer penalty: <span id="capModes">—</span></span>
+      <div class="chips" aria-live="polite">
+        <div class="chip"><strong>Safety threshold:</strong> <span id="capCrime">—</span></div>
+        <div class="chip"><strong>Commute weight:</strong> <span id="capTime">—</span></div>
+        <div class="chip"><strong>Transfer weight:</strong> <span id="capModes">—</span></div>
       </div>
     </div>
 
@@ -104,17 +110,16 @@
       <h2 style="margin:0 0 10px; font-size:18px;">Results</h2>
       <div class="muted" id="summary">Click “Show best matches”.</div>
 
-      <div style="overflow:auto; margin-top:10px;">
+      <div style="overflow:auto; margin-top:12px;">
         <table id="resultsTable" aria-label="Results table">
           <thead>
             <tr>
               <th>Listing</th>
               <th>Area</th>
-              <th>Price</th>
-              <th>Commute</th>
-              <th>Safety (crime)</th>
-              <th>Transfers</th>
-              <th>Score</th>
+              <th class="num">Rent</th>
+              <th class="num">Commute</th>
+              <th>Safety</th>
+              <th class="num">Modes</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -122,7 +127,7 @@
       </div>
 
       <div class="hint" style="margin-top:10px;">
-        “Score” is internal: lower is better (price + commute penalty + transfer penalty). Safety is enforced by your safety choice.
+        Results are sorted internally using your preferences, but the score is hidden to keep the UI simple.
       </div>
     </div>
   </main>
@@ -146,10 +151,10 @@
     const tbody = document.querySelector("#resultsTable tbody");
     const summary = el("summary");
 
-    // Map “friendly” choices -> hidden numeric knobs
+    // Friendly choices -> hidden numeric knobs
     const crimeCapMap = {
-      super_safe: 20,   // strict
-      safe: 50,         // your prior default
+      super_safe: 20,
+      safe: 50,
       balanced: 80,
       flexible: 120
     };
@@ -161,7 +166,6 @@
       extreme: 150
     };
 
-    // Penalty per extra mode (modes-1)
     const modePenaltyMap = {
       ok: 0,
       prefer: 300,
@@ -170,12 +174,23 @@
     };
 
     const fmtMoney = (n) => "$" + Math.round(n).toLocaleString();
-    const safetyLabel = (crime) => {
-      if (crime <= 20) return "Very safe";
-      if (crime <= 50) return "Safe";
-      if (crime <= 80) return "Mixed";
-      return "Higher risk";
-    };
+
+    function safetyLabel(crime) {
+      if (crime <= 20) return `Very safe (${crime})`;
+      if (crime <= 50) return `Safe (${crime})`;
+      if (crime <= 80) return `Mixed (${crime})`;
+      return `Higher risk (${crime})`;
+    }
+
+    function updateChips() {
+      const crimeCap = crimeCapMap[el("safety").value];
+      const timeVal = timeValueMap[el("travelPriority").value];
+      const modePen = modePenaltyMap[el("transferTolerance").value];
+
+      el("capCrime").textContent = `< ${crimeCap} incidents / 1,000`;
+      el("capTime").textContent = `${timeVal} (internal weight)`;
+      el("capModes").textContent = `${modePen} (internal weight)`;
+    }
 
     function render(rows) {
       tbody.innerHTML = "";
@@ -184,30 +199,19 @@
         tr.innerHTML = `
           <td>${r.name}</td>
           <td>${r.area}</td>
-          <td>${fmtMoney(r.price)}</td>
-          <td>${r.mins} min</td>
-          <td>${safetyLabel(r.crime)} <span class="muted">(${r.crime})</span></td>
-          <td>${r.modes} mode(s)</td>
-          <td>${fmtMoney(r.score)}</td>
+          <td class="num">${fmtMoney(r.price)}</td>
+          <td class="num">${r.mins} min</td>
+          <td>${safetyLabel(r.crime)}</td>
+          <td class="num">${r.modes}</td>
         `;
         tbody.appendChild(tr);
       }
     }
 
-    function updateCaps() {
-      const crimeCap = crimeCapMap[el("safety").value];
-      const timeVal = timeValueMap[el("travelPriority").value];
-      const modePen = modePenaltyMap[el("transferTolerance").value];
-
-      el("capCrime").textContent = `< ${crimeCap} / 1,000`;
-      el("capTime").textContent = `${timeVal} $/min`;
-      el("capModes").textContent = `${modePen} $ per extra mode`;
-    }
-
     ["safety", "travelPriority", "transferTolerance"].forEach(id => {
-      el(id).addEventListener("change", updateCaps);
+      el(id).addEventListener("change", updateChips);
     });
-    updateCaps();
+    updateChips();
 
     el("runBtn").addEventListener("click", () => {
       const K = Math.max(1, parseInt(el("k").value || "10", 10));
@@ -220,15 +224,14 @@
       // Hard filters (budget + safety)
       let rows = sample.filter(d => d.price <= budget && d.crime < crimeCap);
 
-      // Score for sorting (lower is better)
-      rows = rows.map(d => ({
-        ...d,
-        score: d.price + timeVal * d.mins + modePen * (d.modes - 1)
-      })).sort((a, b) => a.score - b.score);
+      // Internal ranking (score hidden)
+      rows = rows
+        .map(d => ({ ...d, __rank: d.price + timeVal * d.mins + modePen * (d.modes - 1) }))
+        .sort((a, b) => a.__rank - b.__rank)
+        .slice(0, K);
 
-      const out = rows.slice(0, K);
-      summary.textContent = `Showing ${out.length} listing(s) under $${budget} and your safety setting.`;
-      render(out);
+      summary.textContent = `Showing ${rows.length} listing(s) under ${fmtMoney(budget)} and your safety setting.`;
+      render(rows);
     });
   </script>
 </body>
