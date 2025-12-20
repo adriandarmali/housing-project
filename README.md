@@ -8,6 +8,9 @@ I created this project as way to apply what I learned during my Master of Busine
 **Application**
 This methodology can be applied to numerous other business applications, for example e-commerce listings. The MILP can be expanded to how e-commerce websites recommend product assortments while balancing profit margin as part of the constraints.
 
+**HOW TO / DISCLAIMER**
+Gurobi is a paid mathematical solver tools, in case my lisence is only for academic purpose, not commercial. For showcase purpose, I have attached the Gurobi Code and MILP formula in the repository (HousingOptimizer.ipynb). It can be run locally on your machine.
+
 
 **🔍 Project Overview**
 
