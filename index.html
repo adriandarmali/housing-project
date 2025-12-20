@@ -5,72 +5,104 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Student Housing Optimizer (Dummy)</title>
   <style>
-    :root { --max: 980px; }
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; color: #111; }
-    header { padding: 28px 16px; border-bottom: 1px solid #e5e5e5; }
+    :root { --max: 980px; --b:#e7e7e7; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; color:#111; }
+    header { padding: 28px 16px; border-bottom: 1px solid var(--b); }
     main { max-width: var(--max); margin: 0 auto; padding: 16px; }
-    .card { border: 1px solid #e5e5e5; border-radius: 12px; padding: 16px; margin: 12px 0; }
-    .row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-    .row label { display: block; font-size: 12px; color: #444; margin-bottom: 6px; }
-    input[type="number"], input[type="range"] { width: 100%; }
-    button { padding: 10px 14px; border: 1px solid #ccc; background: #fff; border-radius: 10px; cursor: pointer; }
-    button:hover { border-color: #999; }
-    table { width: 100%; border-collapse: collapse; }
-    th, td { border-bottom: 1px solid #eee; padding: 10px 8px; text-align: left; font-size: 14px; }
-    th { font-size: 12px; color: #444; text-transform: uppercase; letter-spacing: .03em; }
-    .muted { color: #666; font-size: 14px; }
-    .pill { display:inline-block; padding: 4px 8px; border: 1px solid #ddd; border-radius: 999px; font-size: 12px; color:#333; }
-    .footer { margin-top: 18px; font-size: 12px; color: #666; }
-    @media (max-width: 820px) { .row { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 520px) { .row { grid-template-columns: 1fr; } }
+    .muted { color:#666; font-size:14px; }
+    .card { border:1px solid var(--b); border-radius: 12px; padding:16px; margin: 12px 0; }
+    .row { display:grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    label { display:block; font-size:12px; color:#444; margin-bottom:6px; }
+    select, input[type="number"], input[type="range"] { width:100%; padding:10px; border:1px solid #ddd; border-radius:10px; }
+    input[type="range"] { padding: 0; border: none; }
+    button { padding: 10px 14px; border: 1px solid #ccc; background:#fff; border-radius: 10px; cursor:pointer; }
+    button:hover { border-color:#999; }
+    table { width:100%; border-collapse: collapse; }
+    th, td { border-bottom:1px solid #eee; padding:10px 8px; text-align:left; font-size:14px; }
+    th { font-size:12px; color:#444; text-transform: uppercase; letter-spacing:.03em; }
+    .pill { display:inline-block; padding:4px 8px; border:1px solid #ddd; border-radius:999px; font-size:12px; color:#333; }
+    .hint { font-size:12px; color:#555; margin-top:6px; }
+    .kpi { display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px; }
+    .kpi .pill { background:#fafafa; }
+    @media (max-width: 820px) { .row { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
   <header>
     <main style="padding-top:0;">
       <h1 style="margin:0 0 6px;">🏠 Student Housing Optimizer (Dummy)</h1>
-      <div class="muted">Static demo page for GitHub → Netlify deployment (no solver, no backend).</div>
+      <div class="muted">Customer-friendly controls (demo only). Filters + sorts a tiny sample dataset.</div>
     </main>
   </header>
 
   <main>
     <div class="card">
-      <h2 style="margin:0 0 10px; font-size:18px;">Inputs (demo only)</h2>
+      <h2 style="margin:0 0 10px; font-size:18px;">Your preferences</h2>
+
       <div class="row">
         <div>
-          <label for="k">Number of listings (K)</label>
+          <label for="k">How many listings do you want?</label>
           <input id="k" type="number" min="1" max="20" value="10" />
         </div>
+
         <div>
-          <label for="budget">Max budget per listing (CAD)</label>
+          <label for="budget">Max rent per listing (CAD)</label>
           <input id="budget" type="number" min="0" step="50" value="1400" />
+          <div class="hint">Listings above this rent are excluded.</div>
         </div>
+
         <div>
-          <label for="crime">Crime cap (incidents / 1,000)</label>
-          <input id="crime" type="number" min="0" step="1" value="50" />
-        </div>
-        <div>
-          <label for="time">Value of time ($/min)</label>
-          <input id="time" type="number" min="0" step="5" value="50" />
+          <label for="safety">How safe do you want it?</label>
+          <select id="safety">
+            <option value="super_safe">Super safe</option>
+            <option value="safe" selected>Safe</option>
+            <option value="balanced">Balanced</option>
+            <option value="flexible">A bit unsafe is ok</option>
+          </select>
+          <div class="hint">This sets a hidden crime cap.</div>
         </div>
       </div>
 
-      <div style="margin-top:14px;">
-        <label for="modes" style="display:block; font-size:12px; color:#444; margin-bottom:6px;">
-          Modes penalty (soft) <span class="pill" id="modesLabel">$500</span>
-        </label>
-        <input id="modes" type="range" min="0" max="2000" step="50" value="500" />
+      <div class="row" style="margin-top:12px;">
+        <div>
+          <label for="travelPriority">How important is a short commute?</label>
+          <select id="travelPriority">
+            <option value="low">Not important</option>
+            <option value="med" selected>Somewhat important</option>
+            <option value="high">Very important</option>
+            <option value="extreme">I hate commuting</option>
+          </select>
+          <div class="hint">This sets a hidden “value of time”.</div>
+        </div>
+
+        <div>
+          <label for="transferTolerance">How much do you dislike transfers?</label>
+          <select id="transferTolerance">
+            <option value="ok" selected>Transfers are fine</option>
+            <option value="prefer">Prefer fewer transfers</option>
+            <option value="avoid">Avoid transfers</option>
+            <option value="nope">No transfers if possible</option>
+          </select>
+          <div class="hint">This sets a hidden modes penalty.</div>
+        </div>
+
+        <div>
+          <label for="runBtn">Run</label>
+          <button id="runBtn" style="width:100%;">Show best matches</button>
+          <div class="hint">Demo uses sample data only.</div>
+        </div>
       </div>
 
-      <div style="margin-top:14px;">
-        <button id="runBtn">Run dummy “optimize”</button>
-        <span class="muted" style="margin-left:10px;">This just filters + sorts a tiny in-page sample dataset.</span>
+      <div class="kpi" aria-live="polite">
+        <span class="pill">Safety cap: <span id="capCrime">—</span></span>
+        <span class="pill">Commute weight: <span id="capTime">—</span></span>
+        <span class="pill">Transfer penalty: <span id="capModes">—</span></span>
       </div>
     </div>
 
     <div class="card">
       <h2 style="margin:0 0 10px; font-size:18px;">Results</h2>
-      <div class="muted" id="summary">Click “Run dummy optimize” to populate results.</div>
+      <div class="muted" id="summary">Click “Show best matches”.</div>
 
       <div style="overflow:auto; margin-top:10px;">
         <table id="resultsTable" aria-label="Results table">
@@ -80,23 +112,23 @@
               <th>Area</th>
               <th>Price</th>
               <th>Commute</th>
-              <th>Crime</th>
-              <th>Modes</th>
-              <th>ObjCost</th>
+              <th>Safety (crime)</th>
+              <th>Transfers</th>
+              <th>Score</th>
             </tr>
           </thead>
           <tbody></tbody>
         </table>
       </div>
 
-      <div class="footer">
-        Objective used (demo): <code>ObjCost = price + timeValue*minutes + modesPenalty*(modes-1)</code>, with hard caps on budget and crime.
+      <div class="hint" style="margin-top:10px;">
+        “Score” is internal: lower is better (price + commute penalty + transfer penalty). Safety is enforced by your safety choice.
       </div>
     </div>
   </main>
 
   <script>
-    // Tiny demo dataset (replace with real data later)
+    // Sample data (replace later)
     const sample = [
       { name: "Listing A", area: "Kitsilano", price: 1350, mins: 25, crime: 21, modes: 1 },
       { name: "Listing B", area: "Dunbar-Southlands", price: 1100, mins: 14, crime: 10, modes: 1 },
@@ -104,24 +136,46 @@
       { name: "Listing D", area: "West Point Grey", price: 1400, mins: 15, crime: 14, modes: 1 },
       { name: "Listing E", area: "Sunset", price: 1200, mins: 34, crime: 25, modes: 2 },
       { name: "Listing F", area: "West End", price: 1300, mins: 56, crime: 46, modes: 3 },
-      { name: "Listing G", area: "Downtown", price: 1300, mins: 45, crime: 128, modes: 2 }
+      { name: "Listing G", area: "Downtown", price: 1300, mins: 45, crime: 128, modes: 2 },
+      { name: "Listing H", area: "Oakridge", price: 1100, mins: 34, crime: 17, modes: 1 },
+      { name: "Listing I", area: "Grandview-Woodland", price: 900, mins: 68, crime: 38, modes: 1 },
+      { name: "Listing J", area: "Hastings-Sunrise", price: 750, mins: 84, crime: 22, modes: 1 }
     ];
 
-    const kEl = document.getElementById("k");
-    const budgetEl = document.getElementById("budget");
-    const crimeEl = document.getElementById("crime");
-    const timeEl = document.getElementById("time");
-    const modesEl = document.getElementById("modes");
-    const modesLabel = document.getElementById("modesLabel");
-    const runBtn = document.getElementById("runBtn");
+    const el = (id) => document.getElementById(id);
     const tbody = document.querySelector("#resultsTable tbody");
-    const summary = document.getElementById("summary");
+    const summary = el("summary");
 
-    function money(n) { return "$" + Math.round(n).toLocaleString(); }
+    // Map “friendly” choices -> hidden numeric knobs
+    const crimeCapMap = {
+      super_safe: 20,   // strict
+      safe: 50,         // your prior default
+      balanced: 80,
+      flexible: 120
+    };
 
-    modesEl.addEventListener("input", () => {
-      modesLabel.textContent = "$" + modesEl.value;
-    });
+    const timeValueMap = {
+      low: 10,
+      med: 50,
+      high: 100,
+      extreme: 150
+    };
+
+    // Penalty per extra mode (modes-1)
+    const modePenaltyMap = {
+      ok: 0,
+      prefer: 300,
+      avoid: 800,
+      nope: 1400
+    };
+
+    const fmtMoney = (n) => "$" + Math.round(n).toLocaleString();
+    const safetyLabel = (crime) => {
+      if (crime <= 20) return "Very safe";
+      if (crime <= 50) return "Safe";
+      if (crime <= 80) return "Mixed";
+      return "Higher risk";
+    };
 
     function render(rows) {
       tbody.innerHTML = "";
@@ -130,36 +184,50 @@
         tr.innerHTML = `
           <td>${r.name}</td>
           <td>${r.area}</td>
-          <td>${money(r.price)}</td>
+          <td>${fmtMoney(r.price)}</td>
           <td>${r.mins} min</td>
-          <td>${r.crime}</td>
-          <td>${r.modes}</td>
-          <td>${money(r.objCost)}</td>
+          <td>${safetyLabel(r.crime)} <span class="muted">(${r.crime})</span></td>
+          <td>${r.modes} mode(s)</td>
+          <td>${fmtMoney(r.score)}</td>
         `;
         tbody.appendChild(tr);
       }
     }
 
-    runBtn.addEventListener("click", () => {
-      const K = Math.max(1, parseInt(kEl.value || "10", 10));
-      const budget = parseFloat(budgetEl.value || "1400");
-      const crimeCap = parseFloat(crimeEl.value || "50");
-      const timeValue = parseFloat(timeEl.value || "50");
-      const modesPenalty = parseFloat(modesEl.value || "500");
+    function updateCaps() {
+      const crimeCap = crimeCapMap[el("safety").value];
+      const timeVal = timeValueMap[el("travelPriority").value];
+      const modePen = modePenaltyMap[el("transferTolerance").value];
 
-      // Hard caps
+      el("capCrime").textContent = `< ${crimeCap} / 1,000`;
+      el("capTime").textContent = `${timeVal} $/min`;
+      el("capModes").textContent = `${modePen} $ per extra mode`;
+    }
+
+    ["safety", "travelPriority", "transferTolerance"].forEach(id => {
+      el(id).addEventListener("change", updateCaps);
+    });
+    updateCaps();
+
+    el("runBtn").addEventListener("click", () => {
+      const K = Math.max(1, parseInt(el("k").value || "10", 10));
+      const budget = parseFloat(el("budget").value || "1400");
+
+      const crimeCap = crimeCapMap[el("safety").value];
+      const timeVal = timeValueMap[el("travelPriority").value];
+      const modePen = modePenaltyMap[el("transferTolerance").value];
+
+      // Hard filters (budget + safety)
       let rows = sample.filter(d => d.price <= budget && d.crime < crimeCap);
 
-      // Compute objective cost and sort
+      // Score for sorting (lower is better)
       rows = rows.map(d => ({
         ...d,
-        objCost: d.price + timeValue * d.mins + modesPenalty * (d.modes - 1)
-      })).sort((a, b) => a.objCost - b.objCost);
+        score: d.price + timeVal * d.mins + modePen * (d.modes - 1)
+      })).sort((a, b) => a.score - b.score);
 
-      // Take top K
       const out = rows.slice(0, K);
-
-      summary.textContent = `Showing ${out.length} listing(s) (after caps), sorted by ObjCost.`;
+      summary.textContent = `Showing ${out.length} listing(s) under $${budget} and your safety setting.`;
       render(out);
     });
   </script>
