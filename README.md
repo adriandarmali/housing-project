@@ -64,7 +64,7 @@ Commute and price show the real trade-off: commute ranges from ~14–15 mins (Du
  
 The optimizer’s Top-5 under the crime cap (<50/1,000) are: Dunbar-Southlands, West Point Grey, Shaughnessy, Kitsilano, and South Cambie. All five are 1-mode routes (so no modes penalty kicking in), and all have crime well below the threshold (roughly 10–34 per 1,000). Commute times are mostly tight (14–25 mins) except South Cambie (35 mins), which still makes the cut because it’s much cheaper.
 The pattern is clear: the model is prioritizing short commutes and safety, then using price to break ties. Dunbar-Southlands wins because it’s very safe and the fastest commute (14 mins) at a reasonable price, while West Point Grey stays in despite being expensive because its commute is also extremely short (15 mins) and crime is low. South Cambie is the “value” pick—its commute is longer and crime is higher than the others in the list, but the low rent (~$625) compensates enough to keep it in the Top-5.
-<img width="468" height="551" alt="image" src="https://github.com/user-attachments/assets/88b327f0-2ed5-4ed6-aac0-a8110150d5fa" />
+
 
 
 
