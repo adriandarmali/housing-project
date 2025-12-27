@@ -33,7 +33,7 @@ Methods
 
 	Step 2) Visualization: mapping each neighbourhood price and crime rate
 	
-	<img width="2134" height="1446" alt="image" src="https://github.com/user-attachments/assets/79f79a88-6c1b-4eb9-a3b6-7715939a2f18" />
+<img width="2134" height="1446" alt="image" src="https://github.com/user-attachments/assets/96cadf64-4f5a-40f3-9dc6-f1e7d5e734aa" />
 	
 <img width="935" height="658" alt="image" src="https://github.com/user-attachments/assets/2439b28b-b686-48b9-bb71-da6216dfbf6a" />
 
