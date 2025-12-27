@@ -25,10 +25,16 @@ The tool helps students answer the question:
 
 Methods
 
-	Step 1) Normalization via min–max scaling or winsorization to reduce outliers
+	Step 1) Scrapping from Craiglist data on Vancouver Rent, and clean for duplications. I decided to scrap my own data, since publicly available data i.e. Kaggle, doesn't have the required data quality I have. I used website scrapper called https://dashboard.scraperapi.com/home, and clean it up using my ChatGPT. 
+
+	Of course, craiglist data might have some fake listings or invalid ones, but at least for the purpose of this model it generates price, number of rooms, and locations, which are good enough for minimum viable product (MVP) launch.
 
 
 	Step 2) Visualization: mapping each neighbourhood price and crime rate
+	<img width="2134" height="1446" alt="image" src="https://github.com/user-attachments/assets/79f79a88-6c1b-4eb9-a3b6-7715939a2f18" />
+	
+<img width="935" height="658" alt="image" src="https://github.com/user-attachments/assets/2439b28b-b686-48b9-bb71-da6216dfbf6a" />
+
 
 
 	Step 3) Optimization: MILP to maximize safety/affordability under a commute constraint.
