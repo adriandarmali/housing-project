@@ -40,6 +40,7 @@ Methods
 
 
 	Step 3) Optimization: MILP to maximize safety/affordability under a commute constraint.
+	
 	**Linear Programming Formulation**
 
 <img width="497" height="654" alt="image" src="https://github.com/user-attachments/assets/b94f450b-c6a6-4ccc-8fae-4e961de619f0" />
